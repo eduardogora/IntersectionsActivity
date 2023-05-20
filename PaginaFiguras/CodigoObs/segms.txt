@@ -1,0 +1,78 @@
+//Segmentos
+
+segms = [
+  new Segmento([new Punto([100, 400]), new Punto([500, 200]), "l1"]),
+  new Segmento([new Punto([300, 100]), new Punto([600, 400]), "l2"]),
+  new Segmento([new Punto([500, 400]), new Punto([700, 100]), "l3"]),
+];
+
+
+segms = [
+  new Segmento([new Punto([50, 100]), new Punto([750, 100]), "l1"]),
+  new Segmento([new Punto([50, 700]), new Punto([750, 700]), "l2"]),
+  new Segmento([new Punto([100, 50]), new Punto([100, 750]), "l3"]),
+  new Segmento([new Punto([700, 50]), new Punto([700, 750]), "l4"]),
+];
+
+
+//Este no funciona
+
+segms = [
+  new Segmento([new Punto([200, 100]), new Punto([200, 600]), "l1"]),
+  new Segmento([new Punto([400, 200]), new Punto([400, 700]), "l2"]),
+  new Segmento([new Punto([100, 300]), new Punto([500, 700]), "l3"]),
+  new Segmento([new Punto([100, 100]), new Punto([500, 500]), "l4"]),
+];
+
+//No funciona
+
+segms = [
+  new Segmento([new Punto([200, 100]), new Punto([200, 600]), "l1"]),
+  new Segmento([new Punto([400, 500]), new Punto([350, 750]), "l2"]),
+  new Segmento([new Punto([100, 300]), new Punto([500, 700]), "l3"]),
+  new Segmento([new Punto([100, 100]), new Punto([500, 500]), "l4"]),
+];
+
+//Prueba actual
+
+segms = [
+  new Segmento([new Punto([100, 400]), new Punto([400, 100]), "l1"]),
+  new Segmento([new Punto([100, 300]), new Punto([400, 300]), "l2"]),
+  new Segmento([new Punto([300, 100]), new Punto([300, 500]), "l3"]),
+  new Segmento([new Punto([100, 150]), new Punto([400, 150]), "l4"]),
+];
+
+//No funciona
+
+segms = [
+  new Segmento([new Punto([200, 100]), new Punto([700, 100]), "l1"]),
+  new Segmento([new Punto([200, 200]), new Punto([700, 200]), "l6"]),
+  new Segmento([new Punto([300, 600]), new Punto([300, 100]), "l2"]),
+  new Segmento([new Punto([400, 600]), new Punto([400, 50]), "l3"]),
+  new Segmento([new Punto([500, 600]), new Punto([500, 50]), "l4"]),
+  new Segmento([new Punto([600, 600]), new Punto([600, 50]), "l5"]),
+];
+
+//No FUnciona
+
+segms = [
+  new Segmento([new Punto([200, 100]), new Punto([700, 100]), "l1"]),
+  new Segmento([new Punto([200, 200]), new Punto([700, 200]), "l6"]),
+  new Segmento([new Punto([300, 600]), new Punto([300, 100]), "l2"]),
+  new Segmento([new Punto([400, 600]), new Punto([400, 50]), "l3"]),
+  new Segmento([new Punto([500, 600]), new Punto([500, 50]), "l4"]),
+];
+
+
+segms = [
+  new Segmento([new Punto([200, 100]), new Punto([700, 100]), "l1"]),
+  new Segmento([new Punto([200, 200]), new Punto([700, 600]), "l2"]),
+  new Segmento([new Punto([300, 600]), new Punto([300, 100]), "l3"]),
+];
+
+
+segms = [
+  new Segmento([new Punto([200, 100]), new Punto([700, 100]), "l1"]),
+  new Segmento([new Punto([200, 50 ]), new Punto([700, 600]), "l2"]),
+  new Segmento([new Punto([300, 600]), new Punto([300, 100]), "l3"]),
+];
