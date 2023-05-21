@@ -206,14 +206,16 @@ function start(){
 
     draw(segms);
   }
-  console.log("verticesT", verticesT)
+  console.log("aristasT", aristasT);
+  //console.log("verticesT", verticesT);
   drawInters(segmsTotal, aristasT,verticesT);
   
   //var prueba = getNewAristas(sDi);
   let interWithLines = setIntersectionWithLines(sDi);
   let newAristas = getNewAristas(interWithLines);
   let finalAristas = setNewAristas(newAristas);
-  
+  console.log("newAristas", newAristas);
+  console.log("finalAristas", finalAristas);
 }
 
 
