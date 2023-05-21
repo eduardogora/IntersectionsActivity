@@ -268,6 +268,7 @@ function setNewAristas(ars) {
       }
     }
     console.log("atempF", aristTemp);
+    ars[i].lineas = aristTemp;
   }
   return ars;
 }
