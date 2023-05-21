@@ -264,7 +264,7 @@ function setNewAristas(ars) {
         aristTemp[j].pareja = aristTemp[j].pareja + "'";
       } else {
         aristTemp[j].nombre = aristTemp[j].nombre + "'";
-        aristTemp[j].origen = ars[i].interseccion;
+        aristTemp[j].origen = ars[i].interseccion.nombre;
       }
     }
     console.log("atempF", aristTemp);
