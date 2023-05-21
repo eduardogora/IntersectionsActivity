@@ -252,22 +252,91 @@ function getNewAristas(iWl) {
   return iWl;
 }
 
-function setNewAristas(ars) {
+function findAristaByOrigenAndSigue(aristas, origen, sigue) {
+  return aristas.find((arista) => {
+    if (sigue) {
+      return arista.origen === origen && arista.sigue === sigue;
+    } else {
+      return arista.origen === origen;
+    }
+  });
+}
+
+function getIndexByName(aristOrd, name) {
+  return aristOrd.findIndex((arista) => arista.nombre === name);
+}
+
+function setNewAristas(ars, vertices) {
   let n = ars.length;
-  console.log(ars);
   for (var i = 0; i < n; i++) {
     let aristTemp = JSON.parse(JSON.stringify(ars[i].lineas));
     let m = aristTemp.length;
     let half = Math.floor(m / 2);
+    // Order vertices
+    let pivot = ars[i].interseccion;
+    let vertTemp = JSON.parse(JSON.stringify(vertices));
+    vertTemp = vertTemp.filter((vertex) => vertex.nombre !== pivot.nombre);
+    let pivotX = Number(pivot.x);
+    let pivotY = Number(pivot.y);
+
+    vertTemp.sort((a, b) => {
+      // Retrieve the x and y values from the current vertex objects
+      let vertexAX = Number(a.x);
+      let vertexAY = Number(a.y);
+      let vertexBX = Number(b.x);
+      let vertexBY = Number(b.y);
+
+      // Calculate the angles using the vertex coordinates and pivot coordinates
+      let angleA = Math.atan2(vertexAX - pivotX, vertexAY - pivotY);
+      let angleB = Math.atan2(vertexBX - pivotX, vertexBY - pivotY);
+
+      // Adjust the angles to ensure clockwise sorting
+      if (angleA < 0) angleA += 2 * Math.PI;
+      if (angleB < 0) angleB += 2 * Math.PI;
+
+      return angleA - angleB;
+    });
+
+    console.log("Updated", vertTemp);
+
     for (var j = 0; j < m; j++) {
       if (j < half) {
         aristTemp[j].pareja = aristTemp[j].pareja + "'";
       } else {
         aristTemp[j].nombre = aristTemp[j].nombre + "'";
-        aristTemp[j].origen = ars[i].interseccion.nombre;
+        aristTemp[j].origen = pivot.nombre;
       }
     }
-    console.log("atempF", aristTemp);
+
+    var aristOrd = [];
+    for (let v of vertTemp) {
+      let tempOrig = findAristaByOrigenAndSigue(aristTemp, v.nombre);
+      let temp1 = findAristaByOrigenAndSigue(
+        aristTemp,
+        pivot.nombre,
+        tempOrig.nombre
+      );
+      aristOrd.push(temp1);
+      aristOrd.push(tempOrig);
+    }
+    console.log("Hi", aristOrd);
+
+    for (var j = 0; j < m; j++) {
+      const index = getIndexByName(aristOrd, aristTemp[j].nombre);
+      if (index == m - 1) {
+        indexSig = 0;
+      } else {
+        indexSig = index + 1;
+      }
+      if (index == 0) {
+        indexPrev = m - 1;
+      } else {
+        indexPrev = index - 1;
+      }
+      aristTemp[j].sigue = aristOrd[indexSig].nombre;
+      aristTemp[j].antes = aristOrd[indexPrev].nombre;
+    }
+    console.log("Hii", aristTemp);
     ars[i].lineas = aristTemp;
   }
   return ars;

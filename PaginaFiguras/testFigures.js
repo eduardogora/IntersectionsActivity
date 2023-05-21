@@ -205,7 +205,7 @@ function start() {
   //var prueba = getNewAristas(sDi);
   let interWithLines = setIntersectionWithLines(sDi);
   let newAristas = getNewAristas(interWithLines);
-  let finalAristas = setNewAristas(newAristas);
+  let finalAristas = setNewAristas(newAristas, verticesT);
   console.log("newAristas", newAristas);
   console.log("finalAristas", finalAristas);
 }
