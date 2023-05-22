@@ -201,8 +201,8 @@ function setIntersectionWithLines(object) {
   for (var i = 0; i < intersTemp.length; i++) {
     let vertice = new Vertice(
       "inter" + numInt,
-      intersTemp[0].x,
-      intersTemp[0].y,
+      intersTemp[i].x,
+      intersTemp[i].y,
       null
     );
     verticesT.push(vertice);
@@ -263,6 +263,7 @@ function findAristaByOrigenAndSigue(aristas, origen, sigue) {
 }
 
 function getIndexByName(aristOrd, name) {
+  console.log(aristOrd, name)
   return aristOrd.findIndex((arista) => arista.nombre === name);
 }
 
@@ -275,6 +276,7 @@ function setNewAristas(ars, vertices) {
     // Order vertices
     let pivot = ars[i].interseccion;
     let vertTemp = JSON.parse(JSON.stringify(vertices));
+    //console.log()
     vertTemp = vertTemp.filter((vertex) => vertex.nombre !== pivot.nombre);
     let pivotX = Number(pivot.x);
     let pivotY = Number(pivot.y);
@@ -310,19 +312,36 @@ function setNewAristas(ars, vertices) {
 
     var aristOrd = [];
     for (let v of vertTemp) {
+      console.log("Before", aristTemp, v.nombre)
       let tempOrig = findAristaByOrigenAndSigue(aristTemp, v.nombre);
-      let temp1 = findAristaByOrigenAndSigue(
-        aristTemp,
-        pivot.nombre,
-        tempOrig.nombre
-      );
-      aristOrd.push(temp1);
-      aristOrd.push(tempOrig);
+      console.log("Gora", tempOrig)
+      
+      let temp1;
+
+      if(tempOrig != undefined){
+          temp1 = findAristaByOrigenAndSigue(
+          aristTemp,
+          pivot.nombre,
+          tempOrig.nombre
+        );
+
+        console.log("ahhhhhhhhhhhh",temp1)
+        if(temp1 != undefined){
+          aristOrd.push(temp1);
+          aristOrd.push(tempOrig);
+        }
+      }
+        
     }
     console.log("Hi", aristOrd);
 
     for (var j = 0; j < m; j++) {
+      let indexSig = 0;
+      let indexPrev = 0;
+      let m = aristOrd.length;
+
       const index = getIndexByName(aristOrd, aristTemp[j].nombre);
+      console.log("Index", index)
       if (index == m - 1) {
         indexSig = 0;
       } else {
@@ -333,11 +352,23 @@ function setNewAristas(ars, vertices) {
       } else {
         indexPrev = index - 1;
       }
-      aristTemp[j].sigue = aristOrd[indexSig].nombre;
-      aristTemp[j].antes = aristOrd[indexPrev].nombre;
+      
+
+      if(index != -1){
+        console.log("aristOrd", aristOrd)
+        console.log("indexSig", indexSig)
+        console.log("indexPrev", indexPrev)
+        console.log("m", m)
+        aristTemp[j].sigue = aristOrd[indexSig].nombre;
+        aristTemp[j].antes = aristOrd[indexPrev].nombre;
+      }
     }
     console.log("Hii", aristTemp);
     ars[i].lineas = aristTemp;
   }
   return ars;
+}
+
+function getCycles(lines){
+  console.log(lines)
 }

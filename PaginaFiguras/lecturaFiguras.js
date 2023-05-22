@@ -57,7 +57,7 @@ class Figura {
     }
 }
 
-var numFiguras = 2;
+var numFiguras = 3;
 
 function getAristas(i){
     let file = "";

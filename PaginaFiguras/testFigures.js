@@ -206,6 +206,7 @@ function start() {
   let interWithLines = setIntersectionWithLines(sDi);
   let newAristas = getNewAristas(interWithLines);
   let finalAristas = setNewAristas(newAristas, verticesT);
-  console.log("newAristas", newAristas);
-  console.log("finalAristas", finalAristas);
+  let cycles = getCycles(finalAristas);
+  //console.log("newAristas", newAristas);
+  //console.log("finalAristas", finalAristas);
 }
