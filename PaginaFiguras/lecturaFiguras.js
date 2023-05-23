@@ -83,14 +83,14 @@ function getAristas(i){
                 var myArray = allText.split("\n");
                 myArray.splice(0, 4);
                 myArray.pop();
-
                 //Agregamos un arista
                 myArray.forEach(ar => {
                     var ns = ar.split(" ");
                     var nv = []
                     for(var i = 0; i < ns.length; i++){
                         if(ns[i] != "" && ns[i] != " "){
-                            nv.push(ns[i]);
+                            let nc = ns[i].replace("\r", "");
+                            nv.push(nc);
                         }
                     }
                     aristas.push(new Arista(nv[0], nv[1], nv[2], nv[3], nv[4], nv[5], )) 
