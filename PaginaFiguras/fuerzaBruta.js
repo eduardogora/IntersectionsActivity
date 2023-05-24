@@ -124,18 +124,20 @@ var numInt = 1;
 function getByFBAristas(aristas, vertices) {
   var inters = [];
   var n = segms.length;
+  var newSegments = segms.slice();
+  console.log(aristas)
+  console.log("s", segms)
 
   //Primer Segmento
   for (var i = 0; i < n; i++) {
-    var seg1 = getSegmento(aristas[i], vertices);
     //console.log("Seg1", seg1)
-    var A = segms[i].segmento.puntoI;
-    var B = segms[i].segmento.puntoF;
+    var A = newSegments[i].segmento.puntoI;
+    var B = newSegments[i].segmento.puntoF;
 
     //Segundo Segmento
     for (var j = i; j < n; j++) {
-      var C = segms[j].segmento.puntoI;
-      var D = segms[j].segmento.puntoF;
+      var C = newSegments[j].segmento.puntoI;
+      var D = newSegments[j].segmento.puntoF;
       var pInter = lineLineIntersection(A, B, C, D);
 
       if (
@@ -156,16 +158,23 @@ function getByFBAristas(aristas, vertices) {
       if (rango == true) {
         newInter = new Punto([pInter.x, pInter.y]);
         if (comparePoints(newInter, inters) != 10) {
+          console.log("VT",verticesT)
           inters.push(newInter);
-          //Prueba
-          //verticesT.push(new Vertice("inter" + numInt, pInter.x, pInter.y, null));
-          //sDi.push({ar1: segms[i], ar2: segms[j], interseccion: newInter});
-          sDi.push({ ar: segms[i], interseccion: newInter });
-          sDi.push({ ar: segms[j], interseccion: newInter });
-          //numInt++;
-          //EndPrueba
 
-          //sDi.push({ar1: segms[i], ar2: segms[j], interseccion: newInter}); // Este se debe de descomentar
+          let vertice = new Vertice(
+            "inter" + numInt,
+            newInter.x,
+            newInter.y,
+            null
+          );
+          verticesT.push(vertice);
+          numInt++;
+
+          rosita(newSegments[i], newSegments[j], newSegments, newInter, "inter" + numInt);
+
+          sDi.push({ ar: newSegments[i], interseccion: newInter });
+          sDi.push({ ar: newSegments[j], interseccion: newInter });
+          
         }
         //console.log("I", segms[i])
         //console.log("j", segms[j])
@@ -396,3 +405,137 @@ function getCycles(lines){
   }
   console.log("lineasF", lineasF)
 }
+
+function rosita(arista1, arista2, listAristas, interseccion, nomInterseccion) {
+  console.log("s", arista1.segmento.puntoI)
+  var segm1A = new Segmento([arista1.segmento.puntoI, interseccion]);
+  var segm1B = new Segmento([interseccion, arista1.segmentopuntoF]);
+  console.log(segm1A)
+
+  var arista1B = new Arista(arista1.arista.nombre + "*", nomInterseccion, arista1.arista.nombre, arista1.arista.cara, arista1.arista.sigue, arista1.arista.antes,)
+  var arista1A = new Arista(arista1.arista.nombre, arista1.arista.origen, arista1B.nombre, arista1.arista.cara, arista1.arista.sigue, arista1.arista.antes,)
+  
+  var segm2A = new Segmento([arista2.segmento.puntoI, interseccion]);
+  var segm2B = new Segmento([interseccion, arista2.segmento.puntoF]);
+
+  var arista2B = new Arista(arista2.arista.nombre + "*", nomInterseccion, arista2.arista.nombre, arista2.arista.cara, arista2.arista.sigue, arista2.arista.antes,)
+  var arista2A = new Arista(arista2.arista.nombre, arista2.arista.origen, arista2B.nombre, arista2.arista.cara, arista2.arista.sigue, arista2.arista.antes,)
+  
+  console.log("Arista2A", arista1A);
+  console.log("Arista1B", arista1B);
+
+  //Prueba
+
+  //EndPrueba
+
+  for(var i = 0; i < listAristas.length; i++){
+
+
+  }
+
+  //console.log("Aristas", ars)
+ // console.log("vertices", vertices)
+
+
+
+
+/*
+
+  let n = ars.length;
+  for (var i = 0; i < n; i++) {
+    let aristTemp = JSON.parse(JSON.stringify(ars[i].lineas));
+    let m = aristTemp.length;
+    let half = Math.floor(m / 2);
+    // Order vertices
+    let pivot = ars[i].interseccion;
+    let vertTemp = JSON.parse(JSON.stringify(vertices));
+    //console.log()
+    vertTemp = vertTemp.filter((vertex) => vertex.nombre !== pivot.nombre);
+    let pivotX = Number(pivot.x);
+    let pivotY = Number(pivot.y);
+
+    vertTemp.sort((a, b) => {
+      // Retrieve the x and y values from the current vertex objects
+      let vertexAX = Number(a.x);
+      let vertexAY = Number(a.y);
+      let vertexBX = Number(b.x);
+      let vertexBY = Number(b.y);
+
+      // Calculate the angles using the vertex coordinates and pivot coordinates
+      let angleA = Math.atan2(vertexAX - pivotX, vertexAY - pivotY);
+      let angleB = Math.atan2(vertexBX - pivotX, vertexBY - pivotY);
+
+      // Adjust the angles to ensure clockwise sorting
+      if (angleA < 0) angleA += 2 * Math.PI;
+      if (angleB < 0) angleB += 2 * Math.PI;
+
+      return angleA - angleB;
+    });
+
+    console.log("Updated", vertTemp);
+
+    for (var j = 0; j < m; j++) {
+      if (j < half) {
+        aristTemp[j].pareja = aristTemp[j].pareja + "*";
+      } else {
+        aristTemp[j].nombre = aristTemp[j].nombre + "*";
+        aristTemp[j].origen = pivot.nombre;
+      }
+    }
+
+    var aristOrd = [];
+    for (let v of vertTemp) {
+      //console.log("Before", aristTemp, v.nombre)
+      let tempOrig = findAristaByOrigenAndSigue(aristTemp, v.nombre);
+      //console.log("Gora", tempOrig)
+      
+      let temp1;
+
+      if(tempOrig != undefined){
+          temp1 = findAristaByOrigenAndSigue(
+          aristTemp,
+          pivot.nombre,
+          tempOrig.nombre
+        );
+
+        //console.log("ahhhhhhhhhhhh",temp1)
+        if(temp1 != undefined){
+          aristOrd.push(temp1);
+          aristOrd.push(tempOrig);
+        }
+      }
+        
+    }
+    console.log("Hi", aristOrd);
+
+    for (var j = 0; j < m; j++) {
+      let indexSig = 0;
+      let indexPrev = 0;
+      let m = aristOrd.length;
+
+      const index = getIndexByName(aristOrd, aristTemp[j].nombre);
+      //console.log("Index", index)
+      if (index == m - 1) {
+        indexSig = 0;
+      } else {
+        indexSig = index + 1;
+      }
+      if (index == 0) {
+        indexPrev = m - 1;
+      } else {
+        indexPrev = index - 1;
+      }
+      
+
+      if(index != -1){
+        aristTemp[j].sigue = aristOrd[indexSig].nombre;
+        aristTemp[j].antes = aristOrd[indexPrev].nombre;
+      }
+    }
+    console.log("Hii", aristTemp);
+    ars[i].lineas = aristTemp;
+  }
+  return ars;*/
+}
+
+

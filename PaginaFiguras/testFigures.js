@@ -215,8 +215,5 @@ function start() {
   //var prueba = getNewAristas(sDi);
   let interWithLines = setIntersectionWithLines(sDi);
   let newAristas = getNewAristas(interWithLines);
-  let finalAristas = setNewAristas(newAristas, verticesT);
-  let cycles = getCycles(finalAristas);
-  //console.log("newAristas", newAristas);
-  //console.log("finalAristas", finalAristas);
+  //let finalAristas = rosita(newAristas, verticesT);
 }
