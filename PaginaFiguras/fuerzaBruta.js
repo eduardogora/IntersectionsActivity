@@ -199,7 +199,7 @@ function setIntersectionWithLines(object){
     //Agregamos las intersecciones como vertices
     var numInt = 0;
     for(var i = 0; i < intersTemp.length; i++){
-        let vertice = new Vertice("inter" + numInt, intersTemp[0].x, intersTemp[0].y, null)
+        let vertice = new Vertice("inter" + numInt, intersTemp[i].x, intersTemp[i].y, null)
         verticesT.push(vertice);   
         interWithLines.push(new InterConLineas(vertice))
         numInt++; 
