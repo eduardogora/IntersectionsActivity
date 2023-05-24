@@ -199,8 +199,18 @@ function start() {
 
     draw(segms);
   }
-  console.log("verticesT", verticesT);
   drawInters(segmsTotal, aristasT, verticesT);
+
+  //Limpiamos vertices totales
+    let vertices2 = []
+  for(var i = 0; i < verticesT.length; i++){
+    if(verticesT[i].nombre != ""){
+      vertices2.push(verticesT[i]);
+    }
+    
+  }
+  verticesT = vertices2;
+  console.log("verticesT", verticesT);
 
   //var prueba = getNewAristas(sDi);
   let interWithLines = setIntersectionWithLines(sDi);

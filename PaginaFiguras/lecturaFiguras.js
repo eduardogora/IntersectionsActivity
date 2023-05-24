@@ -181,7 +181,8 @@ function getVertices(i){
                     var nv = []
                     for(var i = 0; i < ns.length; i++){
                         if(ns[i] != "" && ns[i] != " "){
-                            nv.push(ns[i]);
+                            let nc = ns[i].replace("\r", "");
+                            nv.push(nc);
                         }
                     }
                     vertices.push(new Vertice(nv[0], nv[1], nv[2], nv[3], ));

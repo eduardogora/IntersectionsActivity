@@ -263,7 +263,7 @@ function findAristaByOrigenAndSigue(aristas, origen, sigue) {
 }
 
 function getIndexByName(aristOrd, name) {
-  console.log(aristOrd, name)
+  //console.log(aristOrd, name)
   return aristOrd.findIndex((arista) => arista.nombre === name);
 }
 
@@ -303,18 +303,18 @@ function setNewAristas(ars, vertices) {
 
     for (var j = 0; j < m; j++) {
       if (j < half) {
-        aristTemp[j].pareja = aristTemp[j].pareja + "'";
+        aristTemp[j].pareja = aristTemp[j].pareja + "*";
       } else {
-        aristTemp[j].nombre = aristTemp[j].nombre + "'";
+        aristTemp[j].nombre = aristTemp[j].nombre + "*";
         aristTemp[j].origen = pivot.nombre;
       }
     }
 
     var aristOrd = [];
     for (let v of vertTemp) {
-      console.log("Before", aristTemp, v.nombre)
+      //console.log("Before", aristTemp, v.nombre)
       let tempOrig = findAristaByOrigenAndSigue(aristTemp, v.nombre);
-      console.log("Gora", tempOrig)
+      //console.log("Gora", tempOrig)
       
       let temp1;
 
@@ -325,7 +325,7 @@ function setNewAristas(ars, vertices) {
           tempOrig.nombre
         );
 
-        console.log("ahhhhhhhhhhhh",temp1)
+        //console.log("ahhhhhhhhhhhh",temp1)
         if(temp1 != undefined){
           aristOrd.push(temp1);
           aristOrd.push(tempOrig);
@@ -341,7 +341,7 @@ function setNewAristas(ars, vertices) {
       let m = aristOrd.length;
 
       const index = getIndexByName(aristOrd, aristTemp[j].nombre);
-      console.log("Index", index)
+      //console.log("Index", index)
       if (index == m - 1) {
         indexSig = 0;
       } else {
@@ -355,10 +355,10 @@ function setNewAristas(ars, vertices) {
       
 
       if(index != -1){
-        console.log("aristOrd", aristOrd)
+        /*console.log("aristOrd", aristOrd)
         console.log("indexSig", indexSig)
         console.log("indexPrev", indexPrev)
-        console.log("m", m)
+        console.log("m", m)*/
         aristTemp[j].sigue = aristOrd[indexSig].nombre;
         aristTemp[j].antes = aristOrd[indexPrev].nombre;
       }
@@ -369,6 +369,28 @@ function setNewAristas(ars, vertices) {
   return ars;
 }
 
+function checkLineInList(list, name){
+  var n = list.length;
+  for(var i = 0; i < n; i++){
+    if(list[i].nombre == name){
+      return true;
+    }
+  }
+  return false;
+}
+
 function getCycles(lines){
-  console.log(lines)
+  console.log("test",lines)
+  var lineasF = [];
+
+  var n = lines.length;
+  for(var i = 0; i < n; i++){
+    for(var j = 0; j < lines[i].lineas.length; j++){
+      //Aqui puede ser necesario que realicemos un cambio con la ultima aparicion de la arista
+      if(!checkLineInList(lineasF, lines[i].lineas[j].nombre)){
+        lineasF.push(lines[i].lineas[j]);
+      }
+    }
+  }
+  console.log("lineasF", lineasF)
 }
