@@ -538,4 +538,35 @@ function rosita(arista1, arista2, listAristas, interseccion, nomInterseccion) {
   return ars;*/
 }
 
+function dibujarBonito(){
+  var nInters = inters;
+  var segms = []
+  console.log(nInters);
+
+  if (canvas.getContext) {
+    var ctx = canvas.getContext("2d");
+    ctx.setTransform(1, 0, 0, -1, 0, canvas.height);
+
+    //Limpia el canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    segms.forEach((segm) => {
+      ctx.beginPath();
+      //var tam = figura.puntos.length;
+      ctx.moveTo(segm.segmento.puntoI.x, segm.segmento.puntoI.y);
+      ctx.lineTo(segm.segmento.puntoF.x, segm.segmento.puntoF.y);
+
+      //ctx.fill();
+      ctx.stroke();
+      ctx.closePath();
+    });
+
+    /*inters.forEach(inter => {
+      ctx.fillStyle = "#FF0000";
+      ctx.fillRect(inter.x - 5, inter.y - 5, 10, 10);
+    })*/
+  }
+
+}
+
 
