@@ -202,12 +202,11 @@ function start() {
   drawInters(segmsTotal, aristasT, verticesT);
 
   //Limpiamos vertices totales
-    let vertices2 = []
-  for(var i = 0; i < verticesT.length; i++){
-    if(verticesT[i].nombre != ""){
+  let vertices2 = [];
+  for (var i = 0; i < verticesT.length; i++) {
+    if (verticesT[i].nombre != "") {
       vertices2.push(verticesT[i]);
     }
-    
   }
   verticesT = vertices2;
   console.log("verticesT", verticesT);
@@ -215,8 +214,17 @@ function start() {
   //var prueba = getNewAristas(sDi);
   let interWithLines = setIntersectionWithLines(sDi);
   let newAristas = getNewAristas(interWithLines);
+
+  verticesT.sort(function (a, b) {
+    // Sort by "y" in descending order
+    if (a.y !== b.y) {
+      return b.y - a.y;
+    }
+    // If "y" values are equal, sort by "x" in ascending order
+    return a.x - b.x;
+  });
   let finalAristas = setNewAristas(newAristas, verticesT);
   let cycles = getCycles(finalAristas);
   //console.log("newAristas", newAristas);
-  //console.log("finalAristas", finalAristas);
+  console.log("finalAristas", finalAristas);
 }

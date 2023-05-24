@@ -128,7 +128,7 @@ function getByFBAristas(aristas, vertices) {
   //Primer Segmento
   for (var i = 0; i < n; i++) {
     var seg1 = getSegmento(aristas[i], vertices);
-    //console.log("Seg1", seg1)
+    //console.log("Seg1", seg1);
     var A = segms[i].segmento.puntoI;
     var B = segms[i].segmento.puntoF;
 
@@ -172,8 +172,8 @@ function getByFBAristas(aristas, vertices) {
       }
     }
   }
-  //console.log("Inters", inters)
-  //console.log("sDi", sDi)
+  console.log("Inters", inters);
+  //console.log("sDi", sDi);
 
   return inters;
 }
@@ -315,25 +315,23 @@ function setNewAristas(ars, vertices) {
       //console.log("Before", aristTemp, v.nombre)
       let tempOrig = findAristaByOrigenAndSigue(aristTemp, v.nombre);
       //console.log("Gora", tempOrig)
-      
+
       let temp1;
 
-      if(tempOrig != undefined){
-          temp1 = findAristaByOrigenAndSigue(
+      if (tempOrig != undefined) {
+        temp1 = findAristaByOrigenAndSigue(
           aristTemp,
           pivot.nombre,
           tempOrig.nombre
         );
 
         //console.log("ahhhhhhhhhhhh",temp1)
-        if(temp1 != undefined){
+        if (temp1 != undefined) {
           aristOrd.push(temp1);
           aristOrd.push(tempOrig);
         }
       }
-        
     }
-    console.log("Hi", aristOrd);
 
     for (var j = 0; j < m; j++) {
       let indexSig = 0;
@@ -352,9 +350,8 @@ function setNewAristas(ars, vertices) {
       } else {
         indexPrev = index - 1;
       }
-      
 
-      if(index != -1){
+      if (index != -1) {
         /*console.log("aristOrd", aristOrd)
         console.log("indexSig", indexSig)
         console.log("indexPrev", indexPrev)
@@ -364,33 +361,52 @@ function setNewAristas(ars, vertices) {
       }
     }
     console.log("Hii", aristTemp);
+    //intersTemp = getByFBAristas(aristTemp, vertices);
+    //console.log("Bye", intersTemp);
     ars[i].lineas = aristTemp;
+    for (var k = i + 1; k < n; k++) {
+      for (var k = 0; k < n; k++) {
+        if (k != i) {
+          for (var k2 = 0; k2 < ars[k].lineas.length; k2++) {
+            var linea = ars[k].lineas[k2];
+            var matchingLine = aristTemp.find(
+              (arist) => arist.nombre === linea.nombre
+            );
+            if (matchingLine) {
+              //console.log("Intersection:", ars[k].interseccion);
+              //console.log("Matching Line:", matchingLine);
+              ars[k].lineas[k2] = matchingLine;
+            }
+          }
+        }
+      }
+    }
   }
   return ars;
 }
 
-function checkLineInList(list, name){
+function checkLineInList(list, name) {
   var n = list.length;
-  for(var i = 0; i < n; i++){
-    if(list[i].nombre == name){
+  for (var i = 0; i < n; i++) {
+    if (list[i].nombre == name) {
       return true;
     }
   }
   return false;
 }
 
-function getCycles(lines){
-  console.log("test",lines)
+function getCycles(lines) {
+  console.log("test", lines);
   var lineasF = [];
 
   var n = lines.length;
-  for(var i = 0; i < n; i++){
-    for(var j = 0; j < lines[i].lineas.length; j++){
+  for (var i = 0; i < n; i++) {
+    for (var j = 0; j < lines[i].lineas.length; j++) {
       //Aqui puede ser necesario que realicemos un cambio con la ultima aparicion de la arista
-      if(!checkLineInList(lineasF, lines[i].lineas[j].nombre)){
+      if (!checkLineInList(lineasF, lines[i].lineas[j].nombre)) {
         lineasF.push(lines[i].lineas[j]);
       }
     }
   }
-  console.log("lineasF", lineasF)
+  console.log("lineasF", lineasF);
 }
