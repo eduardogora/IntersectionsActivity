@@ -277,7 +277,11 @@ function setNewAristas(ars, vertices) {
     let pivot = ars[i].interseccion;
     let vertTemp = JSON.parse(JSON.stringify(vertices));
     //console.log()
-    vertTemp = vertTemp.filter((vertex) => vertex.nombre !== pivot.nombre);
+    // Remove puntos with the same .x and .y values as intersection
+    vertTemp = vertTemp.filter(
+      (vertex) => vertex.x !== pivot.x || vertex.y !== pivot.y
+    );
+
     let pivotX = Number(pivot.x);
     let pivotY = Number(pivot.y);
 
