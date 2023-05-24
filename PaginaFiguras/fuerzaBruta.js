@@ -178,6 +178,7 @@ function getByFBAristas(aristas, vertices) {
   return inters;
 }
 
+//Revisar que hace //Borrar
 function getIntersWithLines(obj) {
   var n = obj.length;
 
@@ -249,6 +250,7 @@ function getNewAristas(iWl) {
     }
     iWl[i].lineas = linTemp2;
   }
+  console.log('iWl', iWl)
   return iWl;
 }
 
